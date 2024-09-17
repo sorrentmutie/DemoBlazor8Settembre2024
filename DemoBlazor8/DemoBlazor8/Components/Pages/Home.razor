@@ -1,0 +1,14 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<DemoBlazor8.Client.Pages.Categories  @rendermode="new InteractiveWebAssemblyRenderMode(prerender: false)"></DemoBlazor8.Client.Pages.Categories>
+
+
+
+Welcome to your new app.
+
+
+<DemoBlazor8.Client.Pages.Categories  @rendermode="new InteractiveServerRenderMode(prerender: true)"></DemoBlazor8.Client.Pages.Categories>

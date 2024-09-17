@@ -1,0 +1,66 @@
+﻿
+@using DemoBlazor8.Core.DTO
+@using DemoBlazor8.Core.Interfaces
+@inject IDatiCategorie datiCategorie
+@* @inject NavigationManager navigationManager *@
+
+@* @rendermode InteractiveWebAssembly *@
+
+<h3>Categories</h3>
+
+@if(categorieDTOs is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoria in categorieDTOs)
+            {
+                <tr>
+                    <td>@categoria.Id</td>
+                    <td>@categoria.Nome</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-info" @onclick="() => IncreaseCount()">OK</button>
+<a href="/counter" class="btn btn-primary">Counter</a>
+
+@currentCount
+
+
+@code {
+    private List<CategoriaDTO>? categorieDTOs ;
+    private int currentCount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var data = await datiCategorie.EstraiCategorieAsync();
+        if(data is not null)
+        {
+            categorieDTOs = data.ToList();
+        }
+    }
+
+    private async Task IncreaseCount()
+    {
+
+        await datiCategorie.IncreaseCounter();
+
+
+        currentCount = await datiCategorie.GetCounter();
+        //navigationManager.NavigateTo($"/counter");
+        
+    }
+
+}
